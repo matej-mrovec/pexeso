@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pexeso</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="background-objects"></div>
+
+    <h1>PEXESO</h1>
+    <div class="stats">
+        <span>ČAS: <span id="timer">0</span> s</span>  |
+        <span>POČET POKUSŮ: <span id="attempts">0</span></span>
+    </div>
+    <div class="game-board" id="gameBoard"></div>
+    <button id="restartBtn" class="left-btn">RESTART</button>
+    <button id="rulesBtn" class="right-btn">PRAVIDLA</button>
+
+    <div id="rulesModal" class="modal">
+    <div class="modal-content">
+        <h2>PRAVIDLA PEXESA</h2>
+        <p>
+            Cílem hry je najít všechny dvojice stejných kartiček.  
+            <br><br>
+            1. Klikni na libovolnou kartičku, aby ses podíval, co se pod ní skrývá.  
+            <br>
+            2. Klikni na druhou kartičku.  
+            <br>
+            - Pokud je stejná -> pár zůstane odkrytý.  
+            <br>
+            - Pokud ne -> obě se po chvíli zakryjí.  
+            <br><br>
+            Hra končí, když najdeš všechny dvojice.
+        </p>
+    <button id="closeModal" class="close-btn">ZAVŘÍT</button>
+    </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
