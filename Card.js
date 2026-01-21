@@ -19,15 +19,15 @@ class Card {
         s.justifyContent = "center";
         s.fontSize = "2em";
         s.color = "white";
-        s.cursor = "pointer"; // Zmeni kurzor na ruku pri najeti mysi
+        s.cursor = "pointer"; //zmeni kurzor na ruku pri najeti mysi
         s.transition = "transform 0.3s, background-color 0.3s";
-        s.userSelect = "none"; // Zabrani nechtenemu oznaceni emoji modrou barvou
+        s.userSelect = "none"; //zabrani nechtenemu oznaceni emoji modrou barvou
 
         //vyvola funkci v Game.js a preda ji samu sebe (this)
         this.element.addEventListener('click', () => this.flipCallback(this));
     }
 
-    //metoda pro vizuální otočení karty 
+    //otocka karty tam
     flip() {
         this.isFlipped = true;
         this.element.style.transform = "rotateY(180deg)";
@@ -35,11 +35,12 @@ class Card {
         this.element.innerText = this.symbol;
     }
 
-    //metoda pro otočení karty zpet
+    //otocka karty zpet
     unflip() {
         this.isFlipped = false;
         this.element.style.transform = "rotateY(0deg)";
         this.element.style.backgroundColor = "#2e3d49";
         this.element.innerText = "";
     }
+
 }
