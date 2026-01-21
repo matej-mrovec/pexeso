@@ -1,4 +1,3 @@
-// --- GLOBÁLNÍ PROMĚNNÉ (Stav hry) ---
 const symbols = ['🍎','🍌','🍒','🍇','🍉','🍋','🥝','🍓'];
 let attempts = 0;
 let time = 0;
@@ -9,21 +8,20 @@ let firstCard = null;
 let secondCard = null;
 let lockBoard = false;
 
-// Reference na prvky v HTML
 const board = document.getElementById('gameBoard');
 const statsContainer = document.createElement('div');
 const winModal = document.createElement('div');
 const rulesModal = document.createElement('div');
 
-// Tato funkce se spustí hned po načtení souboru a připraví celou plochu
+//nastavi prostredi hry
 function setupUI() {
-    // Nastavení statistik
+    //staty
     statsContainer.style.fontSize = "1.2em";
     statsContainer.style.margin = "10px";
     statsContainer.innerHTML = `Čas: <span id="t">0</span>s | Pokusy: <span id="a">0</span>`;
     document.body.insertBefore(statsContainer, board);
 
-    // Nastavení mřížky
+    //mriz na karty
     board.style.display = "grid";
     board.style.gridTemplateColumns = "repeat(4, 110px)";
     board.style.gap = "15px";
@@ -33,14 +31,14 @@ function setupUI() {
     createWinModal();
     createRulesModal();
 
-    // Spuštění nekonečných animací na pozadí
+    //animace pozadi
     setInterval(() => {
         const randomSymbol = symbols[Math.floor(Math.random() * symbols.length)];
         new BackgroundObject(randomSymbol);
     }, 700);
 }
 
-// Funkce pro vytvoření tlačítek
+//cudliky
 function createButtons() {
     const btnStyle = (b) => {
         Object.assign(b.style, {
@@ -54,7 +52,7 @@ function createButtons() {
     restartBtn.innerText = "RESTART";
     btnStyle(restartBtn);
     restartBtn.style.left = "20px";
-    restartBtn.onclick = startGame; // Při kliku spustí novou hru
+    restartBtn.onclick = startGame; 
 
     const rulesBtn = document.createElement('button');
     rulesBtn.innerText = "PRAVIDLA";
@@ -65,7 +63,7 @@ function createButtons() {
     document.body.append(restartBtn, rulesBtn);
 }
 
-// Funkce pro start/restart hry
+//start/restart
 function startGame() {
     winModal.style.display = "none";
     board.innerHTML = "";
@@ -81,16 +79,16 @@ function startGame() {
     document.getElementById('t').innerText = "0";
     clearInterval(timerInterval);
 
-    // Vytvoření a zamíchání balíčku
+    //vytvor a zamichani karet
     const deck = [...symbols, ...symbols].sort(() => Math.random() - 0.5);
     deck.forEach(symbol => {
-        // Zde vytváříme INSTANCE třídy Card a říkáme jim, co dělat při kliku
+        //vytvoreni karty a pridani na hraci plochu
         const card = new Card(symbol, handleFlip);
         board.appendChild(card.element);
     });
 }
 
-// Funkce pro zapnutí stopek (spustí se po prvním kliku)
+//zapnuti timeru
 function startTimer() {
     if (!gameStarted) {
         gameStarted = true;
@@ -101,7 +99,7 @@ function startTimer() {
     }
 }
 
-// Hlavní logika otočení karty
+//otaceni karet
 function handleFlip(card) {
     if (lockBoard || card.isFlipped || card === firstCard) return;
 
@@ -118,7 +116,7 @@ function handleFlip(card) {
     }
 }
 
-// Kontrola, zda jsou karty stejné
+//kontrola (stejne nebo jine dvojice)
 function checkMatch() {
     lockBoard = true;
     const isMatch = firstCard.symbol === secondCard.symbol;
@@ -136,14 +134,14 @@ function checkMatch() {
     }
 }
 
-// Vynulování aktuálního tahu
+//vynulovani tahu
 function resetTurn() {
     firstCard = null;
     secondCard = null;
     lockBoard = false;
 }
 
-// Funkce pro zobrazení vítězství (místo třídy jen funkce)
+//win ani
 function showWinScreen() {
     clearInterval(timerInterval);
     winModal.style.display = "flex";
@@ -155,7 +153,7 @@ function showWinScreen() {
         </div>`;
 }
 
-// Pomocné funkce pro modální okna
+//win okno
 function createWinModal() {
     Object.assign(winModal.style, {
         position: "fixed", top: "0", left: "0", width: "100%", height: "100%",
@@ -166,6 +164,7 @@ function createWinModal() {
     document.body.appendChild(winModal);
 }
 
+//pravidla okno
 function createRulesModal() {
     Object.assign(rulesModal.style, {
         position: "fixed", top: "0", left: "0", width: "100%", height: "100%",
